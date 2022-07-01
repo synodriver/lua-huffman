@@ -1,0 +1,4 @@
+[submodule "huffman"]
+	path = huffman
+	url = https://github.com/synodriver/huffman
+	branch = nodata
