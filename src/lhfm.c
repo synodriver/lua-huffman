@@ -88,6 +88,7 @@ lencode_mem(lua_State* L)
         return luaL_error(L, "encode error");
     }
     lua_pushlstring(L, (const char*)output, (size_t)outlen);
+    free(output);
     return 1;
 }
 
@@ -108,6 +109,7 @@ ldecode_mem(lua_State* L)
         return luaL_error(L, "decode error");
     }
     lua_pushlstring(L, (const char*)output, (size_t)outlen);
+    free(output);
     return 1;
 }
 
