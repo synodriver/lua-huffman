@@ -42,6 +42,8 @@ lencode_file(lua_State *L)
     {
         return luaL_error(L, "encode error");
     }
+    fclose(input_file);
+    fclose(output_file);
     return 0;
 }
 
@@ -68,6 +70,8 @@ ldecode_file(lua_State *L)
     {
         return luaL_error(L, "decode error");
     }
+    fclose(input_file);
+    fclose(output_file);
     return 0;
 }
 
