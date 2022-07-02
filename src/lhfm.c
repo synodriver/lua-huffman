@@ -35,15 +35,19 @@ lencode_file(lua_State *L)
     NULL_TO_RAISE(input_file, "can't open input file")
 
     FILE *output_file = fopen(output_file_name, "wb");
-    NULL_TO_RAISE(output_file, "can't open output file")
+    if(output_file==NULL)
+    {
+        fclose(input_file);
+        return luaL_error(L, "can't open output file");
+    }
 
-
-    if (huffman_encode_file(input_file, output_file) == 1)
+    int ret = huffman_encode_file(input_file, output_file);
+    fclose(input_file);
+    fclose(output_file);
+    if(ret==1)
     {
         return luaL_error(L, "encode error");
     }
-    fclose(input_file);
-    fclose(output_file);
     return 0;
 }
 
@@ -63,15 +67,19 @@ ldecode_file(lua_State *L)
     NULL_TO_RAISE(input_file, "can't open input file")
 
     FILE *output_file = fopen(output_file_name, "wb");
-    NULL_TO_RAISE(output_file, "can't open output file")
+    if(output_file==NULL)
+    {
+        fclose(input_file);
+        return luaL_error(L, "can't open output file");
+    }
 
-
-    if (huffman_decode_file(input_file, output_file) == 1)
+    int ret = huffman_decode_file(input_file, output_file);
+    fclose(input_file);
+    fclose(output_file);
+    if(ret==1)
     {
         return luaL_error(L, "decode error");
     }
-    fclose(input_file);
-    fclose(output_file);
     return 0;
 }
 
